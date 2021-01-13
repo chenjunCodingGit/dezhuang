@@ -33,10 +33,10 @@ class Toggle extends React.Component {
     }
 
     // 为了在回调中使用 `this`，这个绑定是必不可少的
-    this.onClickHandle = this.onClickHandle.bind(this)
+    // this.onClickHandle = this.onClickHandle.bind(this)
   }
 
-  onClickHandle() {
+  onClickHandle = ()=> {
     this.setState(state => ({
       isBtnState: !state.isBtnState
     }));

@@ -24,42 +24,32 @@ class Welcome2 extends React.Component{
   }
 }
 
-// class Clock extends React.Component {
+class Toggle extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      isBtnState: false
+    }
 
-//   // 构造函数唯一给state赋值的地方
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       date: new Date()
-//     }
-//   }
+    // 为了在回调中使用 `this`，这个绑定是必不可少的
+    this.onClickHandle = this.onClickHandle.bind(this)
+  }
 
-//   componentDidMount() {
-//     this.timeId = setInterval(
-//       () => this.tick(),
-//       1000
-//     )
-//   }
+  onClickHandle() {
+    this.setState(state => ({
+      isBtnState: !state.isBtnState
+    }));
+  }
 
-//   componentWillUnmount() {
-//     clearInterval(this.timeId)
-//   }
-
-//   tick() {
-//     this.setState({
-//       date: new Date()
-//     })
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>Hello,! world!</h1>
-//         <h1>it is {this.state.date.toLocaleTimeString()}</h1>
-//       </div>
-//     )
-//   }
-// }
+  render() {
+    return (
+      <button onClick={this.onClickHandle}>
+        {this.state.isBtnState ? '开开开' : '关关关'}
+      </button>
+    )
+  }
+}
 
 function App() {
   return (
@@ -68,7 +58,7 @@ function App() {
       <Welcome name="jane" />
       <Welcome name="jane2" />
       <Welcome2 name='maria'/>
-      <Welcome2 name='maria2'/>
+      <Toggle></Toggle>
 
       <Comment 
         author= {comment.author}

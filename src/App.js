@@ -5,6 +5,7 @@ import React from 'react';
 import Comment from '../src/test/test'
 import Clock from '../src/test/Clock'
 import LoginControl from '../src/test/LoginControl'
+import NumberList from '../src/test/NumberList'
 
 const comment = {
   date: new Date(),
@@ -61,6 +62,7 @@ function App() {
       <Welcome2 name='maria'/>
       <Toggle></Toggle>
       <LoginControl/>
+      <NumberList numbers={[1,2,3,5,4,8]}/>
 
       <Comment 
         author= {comment.author}

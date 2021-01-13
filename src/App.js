@@ -23,11 +23,47 @@ class Welcome2 extends React.Component{
   }
 }
 
+class Clock extends React.Component {
+
+  // 构造函数唯一给state赋值的地方
+  constructor(props){
+    super(props);
+    this.state = {
+      date: new Date()
+    }
+  }
+
+  componentDidMount() {
+    this.timeId = setInterval(
+      () => this.tick(),
+      1000
+    )
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timeId)
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello,! world!</h1>
+        <h1>it is {this.state.date.toLocaleTimeString()}</h1>
+      </div>
+    )
+  }
+}
+
 function App() {
   return (
     <div className="App">
-      <h1>Hello,! world!</h1>
-      <h2>it is {new Date().toLocaleTimeString()}</h2>
+      <Clock/>
       <Welcome name="jane" />
       <Welcome name="jane2" />
       <Welcome2 name='maria'/>

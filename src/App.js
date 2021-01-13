@@ -4,6 +4,7 @@ import React from 'react';
 
 import Comment from '../src/test/test'
 import Clock from '../src/test/Clock'
+import LoginControl from '../src/test/LoginControl'
 
 const comment = {
   date: new Date(),
@@ -59,6 +60,7 @@ function App() {
       <Welcome name="jane2" />
       <Welcome2 name='maria'/>
       <Toggle></Toggle>
+      <LoginControl/>
 
       <Comment 
         author= {comment.author}

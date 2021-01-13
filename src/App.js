@@ -3,6 +3,7 @@ import './App.css';
 import React from 'react';
 
 import Comment from '../src/test/test'
+import Clock from '../src/test/Clock'
 
 const comment = {
   date: new Date(),
@@ -23,42 +24,42 @@ class Welcome2 extends React.Component{
   }
 }
 
-class Clock extends React.Component {
+// class Clock extends React.Component {
 
-  // 构造函数唯一给state赋值的地方
-  constructor(props){
-    super(props);
-    this.state = {
-      date: new Date()
-    }
-  }
+//   // 构造函数唯一给state赋值的地方
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       date: new Date()
+//     }
+//   }
 
-  componentDidMount() {
-    this.timeId = setInterval(
-      () => this.tick(),
-      1000
-    )
-  }
+//   componentDidMount() {
+//     this.timeId = setInterval(
+//       () => this.tick(),
+//       1000
+//     )
+//   }
 
-  componentWillUnmount() {
-    clearInterval(this.timeId)
-  }
+//   componentWillUnmount() {
+//     clearInterval(this.timeId)
+//   }
 
-  tick() {
-    this.setState({
-      date: new Date()
-    })
-  }
+//   tick() {
+//     this.setState({
+//       date: new Date()
+//     })
+//   }
 
-  render() {
-    return (
-      <div>
-        <h1>Hello,! world!</h1>
-        <h1>it is {this.state.date.toLocaleTimeString()}</h1>
-      </div>
-    )
-  }
-}
+//   render() {
+//     return (
+//       <div>
+//         <h1>Hello,! world!</h1>
+//         <h1>it is {this.state.date.toLocaleTimeString()}</h1>
+//       </div>
+//     )
+//   }
+// }
 
 function App() {
   return (

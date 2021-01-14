@@ -8,6 +8,7 @@ import LoginControl from '../src/test/LoginControl'
 // import NumberList from '../src/test/NumberList'
 import NameForm from '../src/test/NameForm'
 import Reservation from '../src/test/Reservation'
+import Calculator from '../src/test/Calculator'
 
 
 // const comment = {
@@ -64,6 +65,7 @@ function App() {
       <LoginControl/>
       {/* <NumberList numbers={[1,2,3,5,4,8]}/> */}
       <NameForm/>
+      <Calculator/>
       <Reservation/>
       {/* <Comment 
         author= {comment.author}

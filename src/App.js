@@ -2,29 +2,32 @@
 import './App.css';
 import React from 'react';
 
-import Comment from '../src/test/test'
+// import Comment from '../src/test/test'
 import Clock from '../src/test/Clock'
 import LoginControl from '../src/test/LoginControl'
-import NumberList from '../src/test/NumberList'
+// import NumberList from '../src/test/NumberList'
+import NameForm from '../src/test/NameForm'
+import Reservation from '../src/test/Reservation'
 
-const comment = {
-  date: new Date(),
-  text: 'I hope you enjoy learning React!',
-  author: {
-    name: 'Hello Kitty',
-    avatarUrl: 'https://placekitten.com/g/64/64',
-  }
-};
 
-function Welcome(props) {
-  return <h1>她的名字是：{props.name}</h1>
-}
+// const comment = {
+//   date: new Date(),
+//   text: 'I hope you enjoy learning React!',
+//   author: {
+//     name: 'Hello Kitty',
+//     avatarUrl: 'https://placekitten.com/g/64/64',
+//   }
+// };
 
-class Welcome2 extends React.Component{
-  render(){
-    return <h1>欢迎第二个人：{this.props.name}</h1>
-  }
-}
+// function Welcome(props) {
+//   return <h1>她的名字是：{props.name}</h1>
+// }
+
+// class Welcome2 extends React.Component{
+//   render(){
+//     return <h1>欢迎第二个人：{this.props.name}</h1>
+//   }
+// }
 
 class Toggle extends React.Component {
   
@@ -57,18 +60,16 @@ function App() {
   return (
     <div className="App">
       <Clock/>
-      <Welcome name="jane" />
-      <Welcome name="jane2" />
-      <Welcome2 name='maria'/>
       <Toggle></Toggle>
       <LoginControl/>
-      <NumberList numbers={[1,2,3,5,4,8]}/>
-
-      <Comment 
+      {/* <NumberList numbers={[1,2,3,5,4,8]}/> */}
+      <NameForm/>
+      <Reservation/>
+      {/* <Comment 
         author= {comment.author}
         text= {comment.text}
         date= {comment.date}
-      />
+      /> */}
     </div>
   );
 }

@@ -9,6 +9,8 @@ import LoginControl from '../src/test/LoginControl'
 import NameForm from '../src/test/NameForm'
 import Reservation from '../src/test/Reservation'
 import Calculator from '../src/test/Calculator'
+import ThemedButton from '../src/test/ThemedButton'
+import ContextContextApp from '../src/test/ThemeContext/app'
 
 
 // const comment = {
@@ -67,6 +69,8 @@ function App() {
       <NameForm/>
       <Calculator/>
       <Reservation/>
+      <ThemedButton/>
+      <ContextContextApp/>
       {/* <Comment 
         author= {comment.author}
         text= {comment.text}

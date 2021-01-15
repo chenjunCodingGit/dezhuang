@@ -11,6 +11,7 @@ import Reservation from '../src/test/Reservation'
 import Calculator from '../src/test/Calculator'
 import ThemedButton from '../src/test/ThemedButton'
 import ContextContextApp from '../src/test/ThemeContext/app'
+import GuestContext from '../src/test/ThemeContext/GuestContext'
 
 
 // const comment = {
@@ -71,6 +72,7 @@ function App() {
       <Reservation/>
       <ThemedButton/>
       <ContextContextApp/>
+      <GuestContext signedInUser={'Guest1'} theme={'dark'}/>
       {/* <Comment 
         author= {comment.author}
         text= {comment.text}

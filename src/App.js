@@ -13,6 +13,8 @@ import ThemedButton from '../src/test/ThemedButton'
 import ContextContextApp from '../src/test/ThemeContext/app'
 import GuestContext from '../src/test/ThemeContext/GuestContext'
 import NameRefsForm from '../src/test/NameRefsForm'
+import HookCounter from '../src/test/HookCounter'
+
 
 
 // const comment = {
@@ -74,6 +76,7 @@ function App() {
       <ThemedButton/>
       <ContextContextApp/>
       <NameRefsForm/>
+      <HookCounter/>
       <GuestContext signedInUser={'Guest1'} theme={'dark'}/>
       {/* <Comment 
         author= {comment.author}

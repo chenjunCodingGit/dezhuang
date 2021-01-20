@@ -1,37 +1,14 @@
-import './App.css';
 import React from 'react';
+import './App.css';
 
-import Clock from '../src/test/Clock'
-
-class Toggle extends React.Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      isBtnState: false
-    }
-  }
-
-  onClickHandle = ()=> {
-    this.setState(state => ({
-      isBtnState: !state.isBtnState
-    }));
-  }
-
-  render() {
-    return (
-      <button onClick={this.onClickHandle}>
-        {this.state.isBtnState ? '开开开' : '关关关'}
-      </button>
-    )
-  }
-}
+import { Button} from 'antd'
+// import zhCN from 'antd/es/locale/zh_CN'
 
 function App() {
   return (
     <div className="App">
-      <Clock/>
-      <Toggle></Toggle>
+      <Button type="primary">Primary Button</Button>
+      <Button type="dashed">Dashed Button</Button>
     </div>
   );
 }

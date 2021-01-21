@@ -1,21 +1,36 @@
-// @import '~antd/dist/antd.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import { HashRouter } from "react-router-dom"
+import { renderRoutes } from "react-router-config"
+import { createStore } from "redux";
+import { Provider } from 'react-redux'
+import routes from './routes/index'
+
+
+import {ConfigProvider} from 'antd'
+import zhCN from 'antd/es/locale/zh_CN'
+
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 
-// import { Provider } from 'react-redux'
-import App from './App';
+const state =  {
+  name: 'created by chenjun'
+};
+const reducer = (defaultState = state, action) => {
+  return defaultState;
+};
 
-
+const store = createStore(reducer);
 
 ReactDOM.render(
-  <React.StrictMode>
-  <App />
-</React.StrictMode>,
-    // <ConfigProvider locale={zhCN}>
-    //   <Button type="primary">Primary Button</Button>
-    // </ConfigProvider>,
+  <Provider store={store}>
+    <ConfigProvider locale={zhCN}>
+      <HashRouter>
+        {renderRoutes(routes)}
+      </HashRouter>
+    </ConfigProvider>
+  </Provider>,
   document.getElementById('root')
 );
 

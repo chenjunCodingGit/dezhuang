@@ -1,9 +1,14 @@
-// import React from 'react'
-// import { Redirect } from 'react-router-dom'
+import React from 'react'
+import { Redirect } from 'react-router-dom'
 
 import RouteComponents from './components'
 
 const routes = [
+  {
+    path: '/',
+    exact: true,
+    render: () => <Redirect to="/login" />
+  },
   {
     path: '/login',
     requiredAuth: false,

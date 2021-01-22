@@ -6,7 +6,7 @@ const NotFound = () => (
   <div className={`${style['page-404']} h-100`}>
     <div className="wrap h-100">
       <div className={style['lost']}>
-        <img className="img" src="https://imgkr.cn-bj.ufileos.com/12a4100a-0300-4203-a7e0-970dccc34489.png" alt="404" width="605"
+        <img className="img" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3136626573,2216251976&fm=26&gp=0.jpg" alt="404" width="605"
           height="368" />
         <p className="text my-15">
           您访问的页面走失了

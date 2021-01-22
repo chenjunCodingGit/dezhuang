@@ -17,6 +17,7 @@ import './index.css';
 const state =  {
   name: 'created by chenjun'
 };
+
 const reducer = (defaultState = state, action) => {
   return defaultState;
 };

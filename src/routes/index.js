@@ -10,9 +10,14 @@ const routes = [
     render: () => <Redirect to="/login" />
   },
   {
-    path: '/login',
+    path: '/login2',
     requiredAuth: false,
     // component: AsyncComponent(() => import('@/views/Login'))
+    component: RouteComponents.Login2
+  },
+  {
+    path: '/login',
+    requiredAuth: false,
     component: RouteComponents.Login
   },
   {

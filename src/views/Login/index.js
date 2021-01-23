@@ -33,7 +33,7 @@ class Login extends React.Component{
       sessionStorage.setItem('token', res.token)
       sessionStorage.setItem('userInfo', JSON.stringify(user))
       message.success('登录成功')
-      // this.props.history.push('/home')
+      this.props.history.push('/home')
     })
   };
 

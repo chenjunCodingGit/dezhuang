@@ -18,7 +18,8 @@ class Login2 extends React.Component {
       loginType: true,
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        email: ''
       },
       registerForm: {
         username: '',
@@ -28,8 +29,19 @@ class Login2 extends React.Component {
     }
   }
 
-  handleInputChange(e, formType, formTypeInput) {
-
+  handleInputChange = (e, formType, formTypeInput) => {
+    const { loginForm, registerForm } = this.state
+    if (formType === 'register') {
+      registerForm[formTypeInput] = e.target.value
+      this.setState({
+        registerForm
+      })
+    } else {
+      loginForm[formTypeInput] = e.target.value
+      this.setState({
+        loginForm
+      })
+    }
   }
 
   handleLogin() {
@@ -38,17 +50,17 @@ class Login2 extends React.Component {
 
   toggleClass = () => {
     this.setState((state) => {
-      if(state.loginType) {
-        return {
-          loginType: state.loginType,
-          registerForm: {
-            username: '',
-            email: '',
-            password: ''
-          }
-        }
-      }
       return {
+        registerForm: {
+          username: '',
+          email: '',
+          password: ''
+        },
+        loginForm: {
+          username: '',
+          password: '',
+          email: ''
+        },
         loginType: state.loginType
       }
     })
@@ -56,14 +68,14 @@ class Login2 extends React.Component {
   }
 
   render() {
-    const { loginType, registerForm, loginForm, loading} = this.state
+    const { loginType, registerForm, loginForm, loading } = this.state
     const activeClass = !loginType ? 'right-panel-active' : ''
 
     return(
-      <div className="login-wrapper" id="container">
+      <div className="login-wrapper">
         <div className={`${activeClass} container`} id="container">
           <div className="form-container sign-up-container">
-            <form id="register" onSubmit={this.handleLogin}>
+            <form id="register">
               <h1>注册</h1>
               <input type="text" name="username" value={registerForm.username}
               onChange={(e) => {this.handleInputChange(e, 'register', 'username')}}
@@ -80,10 +92,9 @@ class Login2 extends React.Component {
           <div className="form-container sign-in-container">
             <form id="login">
               <h1>登录</h1>
-              <input type="text" name="username" vale={loginForm.username}
-              onChange={(e) => {this.handleInputChange(e, 'login', 'username')}}
-              placeholder="用户名"/>
-              <input type="text" name="password" vale={loginForm.password}
+              <input type="text" value={loginForm.username} onChange={(event) => this.handleInputChange(event, 'login', 'username')} name="username" placeholder="用户名" />
+              {/* <input type="text" name="username" value={loginForm.username} onChange={(e) => {this.handleInputChange(e, 'login', 'username')}} placeholder="用户名"/> */}
+              <input type="text" name="password" value={loginForm.password}
               onChange={(e) => {this.handleInputChange(e, 'login', 'password')}}
               placeholder="密码"/>
               <Link to="/forget">忘记密码</Link>

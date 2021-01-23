@@ -32,14 +32,38 @@ class Login2 extends React.Component {
 
   }
 
+  handleLogin() {
+
+  }
+
+  toggleClass = () => {
+    this.setState((state) => {
+      if(state.loginType) {
+        return {
+          loginType: state.loginType,
+          registerForm: {
+            username: '',
+            email: '',
+            password: ''
+          }
+        }
+      }
+      return {
+        loginType: state.loginType
+      }
+    })
+    this.setState({loginType: !this.state.loginType})
+  }
+
   render() {
     const { loginType, registerForm, loginForm, loading} = this.state
-    const activeClass = ''
+    const activeClass = !loginType ? 'right-panel-active' : ''
+
     return(
       <div className="login-wrapper" id="container">
         <div className={`${activeClass} container`} id="container">
           <div className="form-container sign-up-container">
-            <form id="register">
+            <form id="register" onSubmit={this.handleLogin}>
               <h1>注册</h1>
               <input type="text" name="username" value={registerForm.username}
               onChange={(e) => {this.handleInputChange(e, 'register', 'username')}}
@@ -67,6 +91,20 @@ class Login2 extends React.Component {
                 {loading && <LoadingOutlined className="mr-5" />} 登录
               </button>
             </form>
+          </div>
+          <div  className="overlay-container">
+            <div className="overlay">
+              <div className="overlay-panel overlay-left">
+                <h1 className="text-white">欢迎回来！</h1>
+                <p>请您先登录的个人信息，进行操作。</p>
+                <button className="ghost" data-type="primary" id="signIn" onClick={this.toggleClass}>登录</button>
+              </div>
+              <div className="overlay-panel overlay-right">
+                <h1 className="text-white">注册新账号！</h1>
+                <p>输入您的个人信息注册账号。</p>
+                <button className="ghost" data-type="primary" id="signUp" onClick={this.toggleClass}>注册</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

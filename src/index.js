@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom'
 
 import { HashRouter } from "react-router-dom"
 import { renderRoutes } from "react-router-config"
-import { createStore } from "redux";
+// import { createStore } from "redux";
 import { Provider } from 'react-redux'
-import routes from './routes/index'
+import routes from './routes'
+
+import configureStore from '@/store'
 
 
 import {ConfigProvider} from 'antd'
@@ -14,15 +16,11 @@ import zhCN from 'antd/es/locale/zh_CN'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 
-const state =  {
-  name: 'created by chenjun'
-};
+// const reducer = (defaultState = state, action) => {
+//   return defaultState;
+// };
 
-const reducer = (defaultState = state, action) => {
-  return defaultState;
-};
-
-const store = createStore(reducer);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

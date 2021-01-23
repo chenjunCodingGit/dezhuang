@@ -3,18 +3,20 @@ import ReactDOM from 'react-dom'
 
 import { HashRouter } from "react-router-dom"
 import { renderRoutes } from "react-router-config"
-// import { createStore } from "redux";
 import { Provider } from 'react-redux'
 import routes from './routes'
 
 import configureStore from '@/store'
+import http from '@/utils/http'
 
 
 import {ConfigProvider} from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
 
 import reportWebVitals from './reportWebVitals';
-import './index.css';
+import '@/style/index.scss';
+
+React.$http = http
 
 // const reducer = (defaultState = state, action) => {
 //   return defaultState;

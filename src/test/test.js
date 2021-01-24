@@ -38,4 +38,27 @@ function Comment(props) {
   );
 }
 
-  export default Comment;
+class TestSingle extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      single: 'dsf'
+    }
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      single: e.target.value
+    })
+  }
+
+  render() {
+    return(
+      <div>
+        <input type="text" name="single" onChange={this.handleChange} value={this.state.single}></input>
+      </div>
+    )
+  }
+}
+
+export default TestSingle;

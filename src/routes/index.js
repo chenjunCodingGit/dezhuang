@@ -20,6 +20,11 @@ const routes = [
     requiredAuth: false,
     component: RouteComponents.Login
   },
+  // {
+  //   path: '/test',
+  //   requiredAuth: false,
+  //   component: RouteComponents.TestSingle
+  // },
   {
     path: '*',
     component: RouteComponents.NotFound

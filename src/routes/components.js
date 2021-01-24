@@ -17,9 +17,15 @@ const NotFound = Loadable({
   loading: Loading
 })
 
+const TestSingle = Loadable({
+  loader: () => import('@/test/test'),
+  loading: Loading
+})
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   Login,
   Login2,
-  NotFound
+  NotFound,
+  TestSingle
 }

@@ -14,8 +14,8 @@ class Login2 extends React.Component {
   constructor(){
     super()
     this.state = {
-      loading: false,
       loginType: true,
+      loading: false,
       loginForm: {
         username: '',
         password: '',
@@ -27,6 +27,63 @@ class Login2 extends React.Component {
         email: ''
       }
     }
+  }
+
+  handleRegister = (e) => {
+    e.preventDefault()
+    const { registerForm } = this.state
+    if(!registerForm.username) {
+      return message.warning('用户名不能为空')
+    }
+    if (!registerForm.email) {
+      return message.warning('邮箱不能为空')
+    }
+    if (!registerForm.password) {
+      return message.warning('密码不能为空')
+    }
+    $http.post('register',{ ...registerForm }).then(() => {
+      const key = 'regSuceess'
+      notification.open({
+        key,
+        message: '注册成功！',
+        description: '账号注册成功，正在为你登录...',
+      });
+      setTimeout(() => {
+        $http.post('login',{
+          username: registerForm.username,
+          password: registerForm.password
+        }).then((res) => {
+          // if (res.code === 200) {
+          notification.close('register')
+          const { token, ...user } = res
+          sessionStorage.setItem('token', res.token)
+          sessionStorage.setItem('userInfo', JSON.stringify(user))
+          message.success('登录成功')
+          this.props.history.push('/home')
+          // }
+        })
+      }, 1000);
+    })
+  }
+
+  handleLogin = (e) => {
+    e.preventDefault();
+    const { loginForm } = this.state
+    if (!loginForm.username) {
+      return message.error('用户名不能为空')
+    }
+    if (!loginForm.password) {
+      return message.error('密码不能为空')
+    }
+    this.setState({loading: true})
+    $http.post('login',{...loginForm}).then((res) => {
+      const { token, ...user } = res
+      sessionStorage.setItem('token', res.token)
+      sessionStorage.setItem('userInfo', JSON.stringify(user))
+      message.success('登录成功')
+      this.setState({loading: false})
+      this.props.history.push('/home')
+    })
   }
 
   handleInputChange = (e, formType, formTypeInput) => {
@@ -42,10 +99,6 @@ class Login2 extends React.Component {
         loginForm
       })
     }
-  }
-
-  handleLogin() {
-
   }
 
   toggleClass = () => {
@@ -75,7 +128,7 @@ class Login2 extends React.Component {
       <div className="login-wrapper">
         <div className={`${activeClass} container`} id="container">
           <div className="form-container sign-up-container">
-            <form id="register">
+            <form id="register" onSubmit={this.handleRegister}>
               <h1>注册</h1>
               <input type="text" name="username" value={registerForm.username}
               onChange={(e) => {this.handleInputChange(e, 'register', 'username')}}
@@ -90,11 +143,10 @@ class Login2 extends React.Component {
             </form>
           </div>
           <div className="form-container sign-in-container">
-            <form id="login">
+            <form id="login" onSubmit={this.handleLogin}>
               <h1>登录</h1>
               <input type="text" value={loginForm.username} onChange={(event) => this.handleInputChange(event, 'login', 'username')} name="username" placeholder="用户名" />
-              {/* <input type="text" name="username" value={loginForm.username} onChange={(e) => {this.handleInputChange(e, 'login', 'username')}} placeholder="用户名"/> */}
-              <input type="text" name="password" value={loginForm.password}
+              <input type="password" name="password" value={loginForm.password}
               onChange={(e) => {this.handleInputChange(e, 'login', 'password')}}
               placeholder="密码"/>
               <Link to="/forget">忘记密码</Link>

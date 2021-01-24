@@ -12,6 +12,16 @@ const Login2 = Loadable({
   loading() { return <Spin/> }
 })
 
+const Home = Loadable({
+  loader: () => import('@/views/Home'),
+  loading: Loading
+})
+
+const Layout = Loadable({
+  loader: () => import('@/views/Layout'),
+  loading: Loading
+})
+
 const NotFound = Loadable({
   loader: () => import('@/views/NotFound/404'),
   loading: Loading
@@ -26,6 +36,8 @@ const TestSingle = Loadable({
 export default {
   Login,
   Login2,
+  Home,
+  Layout,
   NotFound,
   TestSingle
 }

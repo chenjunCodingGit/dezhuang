@@ -56,6 +56,7 @@ class TestSingle extends React.Component {
     return(
       <div>
         <input type="text" name="single" onChange={this.handleChange} value={this.state.single}></input>
+        <Comment/>
       </div>
     )
   }

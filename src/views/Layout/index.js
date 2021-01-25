@@ -3,7 +3,7 @@ import { HashRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 
 // import style from './index.module.scss'
-import { Layout, Menu, Breadcrumb, Avatar, Dropdown, Button } from 'antd'
+import { Layout, Menu, Breadcrumb, Avatar, Dropdown, Button, Modal } from 'antd'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -43,6 +43,8 @@ class LayoutContainer extends React.Component {
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo')) || {}
 
     this.state = {
+      visible: false, // 控制Modal层
+      confirmLoading: false, // 控制Modal层异步
       collapsed: false,
       title: '后台管理系统',
       selectedKeys: [currentPath],
@@ -54,16 +56,16 @@ class LayoutContainer extends React.Component {
 
   handleFindOpenMenu = (selectedKeys) => {
     const findMenu = mapMenu.find(subMenu => subMenu.key === selectedKeys)
-    if (selectedKeys === '404') {
-      this.props.history.push({
-        pathname: '/login'
-      })
-      return {
-        menuKey: findMenu && findMenu.parentKey,
-        subMenu: findMenu && findMenu.key,
-        breadcrumb: []
-      }
-    }
+    // if (selectedKeys === '404') {
+    //   this.props.history.push({
+    //     pathname: '/login'
+    //   })
+    //   return {
+    //     menuKey: findMenu && findMenu.parentKey,
+    //     subMenu: findMenu && findMenu.key,
+    //     breadcrumb: []
+    //   }
+    // }
 
     let breadcrumb = []
     breadcrumb.push(findMenu.parentName, findMenu.name)
@@ -90,14 +92,12 @@ class LayoutContainer extends React.Component {
   }
 
   handleMenuClick = (item) => {
-    console.log('item: ', item)
     const { history } = this.props
     const { key } = item
     if (key === 'logout') {
       if (key === 'logout') {
-        $http.get('logout').then(() => {
-          sessionStorage.clear()
-          history.push('/login')
+        this.setState({
+          visible: true
         })
       } else {
         this.setState({
@@ -116,9 +116,30 @@ class LayoutContainer extends React.Component {
     });
   };
 
+  handleOk = () => {
+    this.setState({
+      confirmLoading: true
+    })
+    // $http.get('logout').then(() => {
+    // })
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false
+      })
+      sessionStorage.clear()
+      this.props.history.push('/login')
+    }, 2000);
+  };
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    })
+  };
+
   render() {
     const { route } = this.props
-    const { collapsed, title, selectedKeys, userInfo, defaultOpenKeys, breadcrumb } = this.state
+    const { visible, confirmLoading, collapsed, title, selectedKeys, userInfo, defaultOpenKeys, breadcrumb } = this.state
     
     const userDropdownMenu = (
       <Menu onClick={this.handleMenuClick}>
@@ -130,7 +151,7 @@ class LayoutContainer extends React.Component {
     )
     
     return(
-      <HashRouter replace>
+      <HashRouter>
         <Layout className={style['layout-container']}>
           <Sider trigger={null} collapsible collapsed={collapsed}>
             <div className={style['logo']}>
@@ -232,6 +253,14 @@ class LayoutContainer extends React.Component {
             </Content>
           </Layout>
         </Layout>
+        <Modal
+          visible={visible}
+          onOk={this.handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={this.handleCancel}
+        >
+        <p>确定退出登录？</p>
+        </Modal>
       </HashRouter>
     )
   }

@@ -25,6 +25,11 @@ const routes = [
     component: RouteComponents.Login
   },
   {
+    path: '/404',
+    requiredAuth: false,
+    component: RouteComponents.NotFound
+  },
+  {
     render: (props) => {
       const token = getToken()
       if (!token) {

@@ -32,8 +32,7 @@ const TestSingle = Loadable({
   loading: Loading
 })
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+export {
   Login,
   Login2,
   Home,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 
-import RouteComponents from './components'
+import * as RouteComponents from './components'
 
 function getToken() {
   return sessionStorage.getItem('token')

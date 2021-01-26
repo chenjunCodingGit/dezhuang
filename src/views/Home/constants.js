@@ -1,3 +1,10 @@
+import React from 'react'
+import {
+  LikeOutlined,
+  ClockCircleOutlined
+} from '@ant-design/icons'
+
+
 const HEAD_BANNER = [
   {
     key: 'week',
@@ -168,7 +175,110 @@ const CHART_OPTION = {
   ]
 }
 
+const USERCOLUMNS = [
+  {
+    title: '用户名',
+    dataIndex: 'username',
+    key: 'username',
+    render: (text, record, index) => {
+      switch(index) {
+        case 0:
+          return <span className="text-light-red">{text}</span>
+        case 1:
+          return <span className="text-yellow">{text}</span>
+        case 2:
+          return <span className="text-green">{text}</span>
+        default:
+          return <span>{text}</span>
+      }
+    }
+  },
+  {
+    title: '最后登录时间',
+    dataIndex: 'lastLoginTime',
+    key: 'lastLoginTime',
+    render: (text) => {
+      return (
+        <React.Fragment>
+          <ClockCircleOutlined />
+          <span className="ml-5">{text}</span>
+        </React.Fragment>
+      )
+    }
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+    render: (text, record) => {
+      return (
+        <React.Fragment>
+          <span>{record.status === 0 ? '离线' : '在线'}</span>
+        </React.Fragment>
+      )
+    }
+  },
+  {
+    title: '获得赞',
+    dataIndex: 'like',
+    key: 'like',
+    render: (text, record) => {
+      return (
+        <React.Fragment>
+          <span className="mr-5">{record.like}</span>
+          <LikeOutlined />
+        </React.Fragment>
+      )
+    }
+  }
+]
+
+const TASKCOLUMNS = [
+  {
+    title: '任务',
+    dataIndex: 'taskName',
+    key: 'taskName',
+    render: (text, record, index) => {
+      switch(index) {
+        case 0:
+          return <span className="text-light-red">{text}</span>
+        case 1:
+          return <span className="text-yellow">{text}</span>
+        case 2:
+          return <span className="text-green">{text}</span>
+        default:
+          return <span>{text}</span>
+      }
+    }
+  },
+  {
+    title: '所需时间',
+    dataIndex: 'taskTime',
+    key: 'taskTime',
+  },
+  {
+    title: '完成状态',
+    dataIndex: 'taskStatus',
+    key: 'taskStatus',
+    render: (text, record, index) => {
+      const status = record.taskStatus === 0 ? '已完成' : record.taskStatus === 1 ? '进行中' : '未开始'
+      switch(text) {
+        case 0:
+          return <span className="text-green">{status}</span>
+        case 1:
+          return <span className="text-yellow">{status}</span>
+        case 2:
+          return <span className="text-light-red">{status}</span>
+        default:
+          return <span>{status}</span>
+      }
+    }
+  },
+]
+
 export {
   HEAD_BANNER,
-  CHART_OPTION
+  CHART_OPTION,
+  USERCOLUMNS,
+  TASKCOLUMNS
 }

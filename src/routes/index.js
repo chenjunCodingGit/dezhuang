@@ -25,6 +25,11 @@ const routes = [
     component: RouteComponents.Login
   },
   {
+    path: '/test',
+    requiredAuth: false,
+    component: RouteComponents.TestSingle
+  },
+  {
     path: '/404',
     requiredAuth: false,
     component: RouteComponents.NotFound
@@ -50,16 +55,21 @@ const routes = [
         component: RouteComponents.Home
       },
       {
+        path: '/test',
+        requiredAuth: false,
+        component: RouteComponents.TestSingle
+      },
+      {
+        path: '/basic-info',
+        requiredAuth: false,
+        component: RouteComponents.BasicInfo
+      },
+      {
         path: '*',
         render: () => <Redirect to="/404" />
       }
     ]
   },  
-  // {
-  //   path: '/test',
-  //   requiredAuth: false,
-  //   component: RouteComponents.TestSingle
-  // },
   {
     path: '*',
     component: RouteComponents.NotFound

@@ -11,7 +11,7 @@ const NotFound = () => (
         <p className="text my-15">
           您访问的页面走失了
         </p>
-        <Button className={style['back']} href="#/login" shape="round">返回首页</Button>
+        <Button className={style['back']} href="#/home" shape="round">返回首页</Button>
       </div>
     </div>
   </div>

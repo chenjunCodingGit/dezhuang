@@ -42,13 +42,17 @@ class TestSingle extends React.Component {
   constructor() {
     super()
     this.state = {
-      single: 'dsf'
+      single: 'dsf',
+      name: 'jack'
     }
   }
 
   handleChange = (e) => {
-    this.setState({
-      single: e.target.value
+    this.setState(preState => {
+      console.log(preState)
+      return {
+        single: e.target.value
+      }
     })
   }
 
@@ -56,7 +60,7 @@ class TestSingle extends React.Component {
     return(
       <div>
         <input type="text" name="single" onChange={this.handleChange} value={this.state.single}></input>
-        <Comment/>
+        {/* <Comment/> */}
       </div>
     )
   }

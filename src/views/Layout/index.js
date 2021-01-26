@@ -19,7 +19,7 @@ import {
 import style from './index.module.scss'
 
 const { Header, Sider, Content } = Layout
-const { $http } = React
+// const { $http } = React
 const mapMenu = [
   { key: 'home', name: '首页'},
   { key: 'user', name: '用户列表', parentName: '用户管理', parentKey: 'user-menu' },
@@ -95,17 +95,16 @@ class LayoutContainer extends React.Component {
     const { history } = this.props
     const { key } = item
     if (key === 'logout') {
-      if (key === 'logout') {
-        this.setState({
-          visible: true
-        })
-      } else {
-        this.setState({
-          selectedKeys: [item.key]
-        }, () => {
-          history.push(item.key)
-        })
-      }
+      this.setState({
+        visible: true
+      })
+    } else {
+      this.setState({
+        selectedKeys: [item.key]
+      }, () => {
+        console.log('key: ', item)
+        history.push(item.key)
+      })
     }
   }
 

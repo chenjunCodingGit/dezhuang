@@ -27,6 +27,11 @@ const BasicInfo = Loadable({
   loading: Loading
 })
 
+const ModifyPwd = Loadable({
+  loader: () => import('@/views/Setting/modify-password'),
+  loading: Loading
+})
+
 const NotFound = Loadable({
   loader: () => import('@/views/NotFound/404'),
   loading: Loading
@@ -43,6 +48,7 @@ export {
   Layout,
   Home,
   BasicInfo,
+  ModifyPwd,
   NotFound,
   TestSingle
 }

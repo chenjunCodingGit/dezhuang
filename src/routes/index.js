@@ -65,6 +65,11 @@ const routes = [
         component: RouteComponents.BasicInfo
       },
       {
+        path: '/modify-password',
+        requiredAuth: false,
+        component: RouteComponents.ModifyPwd
+      },
+      {
         path: '*',
         render: () => <Redirect to="/404" />
       }

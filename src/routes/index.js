@@ -70,6 +70,11 @@ const routes = [
         component: RouteComponents.ModifyPwd
       },
       {
+        path: '/user',
+        requiredAuth: false,
+        component: RouteComponents.User
+      },
+      {
         path: '*',
         render: () => <Redirect to="/404" />
       }

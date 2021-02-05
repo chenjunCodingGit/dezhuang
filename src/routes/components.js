@@ -32,6 +32,11 @@ const ModifyPwd = Loadable({
   loading: Loading
 })
 
+const User = Loadable({
+  loader: () => import('@/views/User/index'),
+  loading: Loading
+})
+
 const NotFound = Loadable({
   loader: () => import('@/views/NotFound/404'),
   loading: Loading
@@ -49,6 +54,7 @@ export {
   Home,
   BasicInfo,
   ModifyPwd,
+  User,
   NotFound,
   TestSingle
 }

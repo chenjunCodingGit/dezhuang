@@ -1,6 +1,8 @@
 import React from 'react'
 import { Form, Modal, Button, Input, Radio, Space } from 'antd'
 
+const EmailRegexp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+const PhoneRegexp = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
 const layout = {
   labelCol: {
     span: 6,
@@ -15,8 +17,6 @@ const tailLayout = {
     span: 16,
   },
 }
-const EmailRegexp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-const PhoneRegexp = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
 
 class UpdateUser extends React.PureComponent {
   constructor(props) {
@@ -30,6 +30,7 @@ class UpdateUser extends React.PureComponent {
       }
     }
   }
+  
 
   formRef = React.createRef()
 
@@ -37,7 +38,7 @@ class UpdateUser extends React.PureComponent {
     const { visible, onSave, onCancel, modalType } = this.props
     
     return (
-      <Modal title={modalType === 'add' ? '创建用户' : '编辑用户'} footer={null} visible={visible} onOk={onSave} onCancel={onCancel}>
+      <Modal title={modalType === 'add' ? '创建用户':'编辑用户'} footer={null} visible={visible} onOk={onSave} onCancel={onCancel}>
         <Form {...layout} name="control-ref" ref={this.formRef} onFinish={onSave} initialValues={this.state.form}>
           <Form.Item label="用户名" name="username"
             rules={[

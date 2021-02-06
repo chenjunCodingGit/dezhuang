@@ -35,6 +35,11 @@ class User extends React.Component {
         total: 0
       },
       userTableData: [],
+      query: {
+        username: '',
+        email: '',
+        sex: -1
+      },
       columns: [
         { title: '用户名', dataIndex: 'username' },
         { title: '性别', dataIndex: 'sex', render: (text, record) => {
@@ -62,9 +67,26 @@ class User extends React.Component {
 
   formRef = React.createRef()
 
+  componentDidMount() {
+    this.getUserList()
+  }
 
   getUserList = () => {
-    console.log(333333)
+    const { query, pagination } = this.state
+    const params = {}
+    for (let key in query) {
+      if (query[key]) params[key] = query[key]
+    }
+    params['page'] = pagination.current
+    params['pageSize'] = pagination.pageSize
+    $http.get('user/list', { params }).then(res => {
+      const { list, ...pagination } = res
+      this.setState({ userTableData: list, pagination: {
+        current: pagination.page,
+        pageSize: pagination.pageSize,
+        total: pagination.total
+      }, loading: false })
+    })
   }
 
   onSelectedChange = (selectedRowKeys) => {
@@ -77,6 +99,66 @@ class User extends React.Component {
       pageSize: pagination.pageSize,
     }}, () => {
       this.getUserList()
+    })
+  }
+  onEdit = (record) => {
+    this.setState({
+      modalVisible: true,
+      modalForm: record,
+      modalType: 'edit'
+    },() => {
+      setTimeout(() => {
+        this.modalRef.formRef.current.setFieldsValue({
+          id: record.id,
+          username: record.username,
+          sex: record.sex,
+          phone: record.phone,
+          email: record.email
+        })
+      }, 100)
+    })
+  }
+  onDelete = (record) => {
+    Modal.confirm({
+      title: '删除用户',
+      icon: <ExclamationCircleOutlined />,
+      content: (<span>确认删除用户<span className="text-light-red">{record.username}</span>吗？</span>),
+      onOk: () => {
+        $http.delete('user/delete', { data: {id: record.id} }).then(res => {
+          message.success('删除成功')
+          this.getUserList()
+        })
+      }
+    })
+  }
+  onSearch = values => {
+    this.setState({ query: values }, () => {
+      this.getUserList()
+    })
+  }
+
+  onModalSave = (values) => {
+    const { modalForm, modalType } = this.state
+    if (modalType === 'add') {
+      $http.post('user/create', values).then(res => {
+        message.success('添加成功')
+        this.onModalCancel()
+      })
+    } else {
+      values.id = modalForm.id
+      $http.put('user/edit', values).then(res => {
+        message.success('修改成功')
+        this.onModalCancel()
+      })
+    }
+  }
+  
+  onModalCancel = () => {
+    this.modalRef.formRef.current.resetFields()
+    this.setState({
+      modalVisible: false,
+      modalType: 'add',
+      modalForm: null
     })
   }
 
@@ -95,7 +177,7 @@ class User extends React.Component {
   }
 
   render() {
-    const { loading, selectedRowKeys, columns, pagination, userTableData } = this.state
+    const { loading, selectedRowKeys, columns, pagination, userTableData, modalType, modalVisible } = this.state
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectedChange
@@ -136,6 +218,7 @@ class User extends React.Component {
         <Form
           ref={this.formRef}
           name="search"
+          onFinish={this.onSearch}
         >
           <Row gutter={24}>
             {getFields()}
@@ -147,7 +230,7 @@ class User extends React.Component {
           <Button type="primary" onClick={this.onMultipleDelete}><DeleteOutlined />批量删除</Button>
         </Space>
         <Table loading={loading} bordered rowSelection={rowSelection} columns={columns} pagination={pagination} onChange={this.paginationChange} dataSource={userTableData} />
-        {/* <UpdateUser ref={f => this.modalRef = f} modalType={modalType} visible={modalVisible} onSave={this.onModalSave} onCancel={this.onModalCancel} /> */}
+        <UpdateUser ref={f => this.modalRef = f} modalType={modalType} visible={modalVisible} onSave={this.onModalSave} onCancel={this.onModalCancel} />
 
       </Card>
     )

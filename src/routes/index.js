@@ -70,6 +70,11 @@ const routes = [
         component: RouteComponents.ModifyPwd
       },
       {
+        path: '/message',
+        requiredAuth: false,
+        component: RouteComponents.Message
+      },
+      {
         path: '/user',
         requiredAuth: false,
         component: RouteComponents.User

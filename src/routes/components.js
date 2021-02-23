@@ -32,6 +32,11 @@ const ModifyPwd = Loadable({
   loading: Loading
 })
 
+const Message = Loadable({
+  loader: () => import('@/views/Community/message'),
+  loading: Loading
+})
+
 const User = Loadable({
   loader: () => import('@/views/User/index'),
   loading: Loading
@@ -54,6 +59,7 @@ export {
   Home,
   BasicInfo,
   ModifyPwd,
+  Message,
   User,
   NotFound,
   TestSingle

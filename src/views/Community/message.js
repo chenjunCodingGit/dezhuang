@@ -29,8 +29,17 @@ class Message extends React.Component {
     this.state = {
       loading: false,
       status: -1,
-      selectedRowKeys: [],
-
+      selectedRowKeys: [], // 多选框
+      control: {
+        delete: {
+          message: '删除成功',
+          fn: props.onMessageDelete
+        },
+        read: {
+          message: '标记成功',
+          fn: props.onMessageStatus
+        }
+      }
     }
   }
 
@@ -48,25 +57,65 @@ class Message extends React.Component {
   }
 
   onSearch = values => {
-    console.log(values)
+    const { onLoadMessageList, pagination = {} } = this.props
+    this.setState({loading: true})
+    onLoadMessageList({
+      status: values.status,
+      page: pagination.current,
+      pageSize: pagination.pageSize
+    }, () => {
+      this.setState({loading: false})
+    })
   }
   onControl = type => {
-    console.log(type)
+    const { selectedRowKeys, control, status } = this.state
+    const { onLoadMessageList, pagination } = this.props
+    if (!selectedRowKeys.length) {
+      return message.error('请先选择消息')
+    }
+    control[type].fn(selectedRowKeys, () => {
+      message.success(control[type].message)
+      this.setState({ selectedRowKeys: [] }, () => {
+        this.setState({ loading: true })
+        onLoadMessageList({
+          status: status,
+          page: pagination.current,
+          pageSize: pagination.pageSize
+        }, () => {
+          this.setState({loading: false})
+        })
+      })
+    })
   }
   paginationChange = pagination => {
-    console.log(pagination)
+    const { onLoadMessageList } = this.props
+    this.setState({loading: true})
+    onLoadMessageList({
+      status: this.state.status,
+      page: pagination.current,
+      pageSize: pagination.pageSize
+    }, () => {
+      this.setState({loading: false})
+    })
+  }
+  onSelectedChange = (selectedRowKeys) => {
+    this.setState({ selectedRowKeys })
   }
 
 
   render() {
     const { list, pagination } = this.props
-    console.log('props: ', this.props)
-    const { loading, status } = this.state
+    const { selectedRowKeys, loading, status } = this.state
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectedChange
+    }
     return (
       <div>
         <Card title="消息列表">
           <Form
             name="search"
+            ref={this.formRef}
             onFinish={this.onSearch}>
             <Row gutter={24}>
               <Col span={6}>
@@ -97,6 +146,7 @@ class Message extends React.Component {
             loading={loading}
             columns={columns}
             pagination={pagination}
+            rowSelection={rowSelection}
             onChange={this.paginationChange}
             dataSource={list}
             bordered/>

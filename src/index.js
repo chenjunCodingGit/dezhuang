@@ -6,7 +6,6 @@ import { renderRoutes } from "react-router-config"
 import { Provider } from 'react-redux'
 import routes from './routes'
 
-import configureStore from '@/store'
 import http from '@/utils/http'
 
 
@@ -16,13 +15,16 @@ import zhCN from 'antd/es/locale/zh_CN'
 import reportWebVitals from './reportWebVitals';
 import '@/style/index.scss';
 
-React.$http = http
-
 // const reducer = (defaultState = state, action) => {
 //   return defaultState;
 // };
-
+import configureStore from '@/store'
+import rootSaga from '@/store/sagas'
 const store = configureStore();
+rootSaga.map(saga => store.runSaga(saga))
+
+React.$http = http
+
 
 ReactDOM.render(
   <Provider store={store}>
